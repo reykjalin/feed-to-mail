@@ -27,15 +27,11 @@ var (
 )
 
 func main() {
-	kingpin.Parse()
-
 	db := openDatastore()
 	defer db.Close()
 
+	kingpin.Parse()
 	feed := parseFeed(*feed)
-	smtp_client := getSmtpClient()
-	defer smtp_client.Close()
-
 	last_updated_timestamp := getLastUpdateTime(db, feed.Link)
 	last_updated := time.Unix(last_updated_timestamp, 0)
 
@@ -56,6 +52,9 @@ func main() {
 	putUpdateTime(db, feed.Link, new_last_updated)
 
 	if len(new_posts) > 0 {
+		smtp_client := getSmtpClient()
+		defer smtp_client.Close()
+
 		email := createEmail(feed, new_posts)
 		err := email.Send(smtp_client)
 		if err != nil {
