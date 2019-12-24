@@ -4,6 +4,8 @@ import (
 	"encoding/binary"
 	"net/url"
 	"os"
+	"path/filepath"
+	"runtime"
 	"time"
 
 	"github.com/araddon/dateparse"
@@ -63,12 +65,31 @@ func main() {
 }
 
 func openDatastore() *bitcask.Bitcask {
-	db, err := bitcask.Open(os.Getenv("HOME") + "/.config/feed-to-mail")
+	db, err := bitcask.Open(getConfigDir())
 	if err != nil {
 		panic(err)
 	}
 
 	return db
+}
+
+func getConfigDir() string {
+	switch runtime.GOOS {
+	case "windows":
+		return filepath.Join(os.Getenv("APPDATA"), "feed-to-mail")
+	case "darwin":
+		return filepath.Join(os.Getenv("HOME"), "Library", "Application Support", "feed-to-mail")
+	case "netbsd":
+		fallthrough
+	case "openbsd":
+		fallthrough
+	case "freebsd":
+		fallthrough
+	case "linux":
+		return filepath.Join(os.Getenv("XDG_CONFIG_HOME"), "feed-to-mail")
+	}
+
+	panic("OS not supported")
 }
 
 func parseFeed(url *url.URL) *gofeed.Feed {
