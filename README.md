@@ -5,14 +5,14 @@ usage: feed-to-inbox [<flags>] <feed> <to> <smtp> <smtp_port> <smtp_user> [<smtp
 
 Flags:
   --help  Show context-sensitive help (also try --help-long and --help-man).
-  
+
 Args:
-  <feed>       Feed URL to use for search
-  <to>         Email to deliver feed to
-  <smtp>       SMTP server to send email
-  <smtp_port>  Port to use for SMTP server
-  <smtp_user>  Username to use for SMTP server
-  [<smtp_pw>]  Password to use for SMTP server
+  <feed>       URL for the feed you wish sent to you.
+  <to>         Recipient email address.
+  <smtp>       SMTP server address used to send the email.
+  <smtp_port>  The port to use for the SMTP server.
+  <smtp_user>  Username to use for the SMTP server.
+  [<smtp_pw>]  Password to use for the SMTP server.
 ```
 
 Running this script will parse a provided RSS or Atom feed and send you a list of new posts along with links and publish dates.

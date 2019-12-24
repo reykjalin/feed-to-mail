@@ -17,13 +17,13 @@ import (
 )
 
 var (
-	feed = kingpin.Arg("feed", "Feed URL to use for search").Required().URL()
-	to   = kingpin.Arg("to", "Email to deliver feed to").Required().String()
+	feed = kingpin.Arg("feed", "URL for the feed you wish sent to you.").Required().URL()
+	to   = kingpin.Arg("to", "Recipient email address.").Required().String()
 
-	smtp      = kingpin.Arg("smtp", "SMTP server to send email").Required().String()
-	smtp_port = kingpin.Arg("smtp_port", "Port to use for SMTP server").Required().Int()
-	smtp_user = kingpin.Arg("smtp_user", "Username to use for SMTP server").Required().String()
-	smtp_pw   = kingpin.Arg("smtp_pw", "Password to use for SMTP server").String()
+	smtp      = kingpin.Arg("smtp", "SMTP server address used to send the email.").Required().String()
+	smtp_port = kingpin.Arg("smtp_port", "The port to use for the SMTP server.").Required().Int()
+	smtp_user = kingpin.Arg("smtp_user", "Username to use for the SMTP server.").Required().String()
+	smtp_pw   = kingpin.Arg("smtp_pw", "Password to use for the SMTP server.").String()
 )
 
 func main() {
